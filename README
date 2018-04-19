@@ -1,0 +1,20 @@
+
+See the top level README for information on where to find documentation
+for the raspberry pi and the ARM processor inside.  Also find information
+on how to load and run these programs.
+
+This example is for the pi2, see other directories for other flavors
+of raspberry pi.  This example switches back to SVC mode from HYP mode.
+
+Also note to make more room for ram the raspberry pi 2 uses a base
+address for peripherals of 0x3F000000 where the raspberry pi used
+0x20000000.
+
+Also note that for the raspberry pi 2 the arm file copied from the
+sd card to ram is kernel7.img  the older raspberry pis still use
+kernel.img.
+
+So I have code that switches back to SVC mode, but still more work
+to do on this.   I had the wrong instruction, so now it does change
+the VBAR rather than have to write stuff to 0x0000 to setup a new
+exception table.
