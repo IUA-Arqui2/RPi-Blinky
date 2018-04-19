@@ -10,7 +10,7 @@ int notmain ( void )
     while(1){
         
         //delay
-        for(cont = 0; cont < 100000; cont++)
+        for(cont = 0; cont < 400000; cont++)
         ;
         
         if(estado){
