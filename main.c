@@ -1,24 +1,21 @@
-#include "hal/rpi-gpio.h"
+#include "BSP/bsp.h"
 
 int notmain ( void )
 {
-    volatile unsigned long int cont;
     unsigned int estado = 0;
-    RPI_GetGpio()->LED_GPFSEL |= 1 << LED_GPFBIT;
-    LED_ON();
-    LED_OFF();
+    static leds_t r = led_r;
+    bsp_init();
+    
     while(1){
-        
         //delay
-        for(cont = 0; cont < 400000; cont++)
-        ;
+        delay_ms(1000);
         
-        if(estado){
+        if (estado) {
             estado = 0;
-            LED_ON();
-        } else{
+            led_on(r);
+        } else {
             estado = 1;
-            LED_OFF();
+            led_off(r);
         }
     }
     return(0);

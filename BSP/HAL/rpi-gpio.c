@@ -1,5 +1,6 @@
 
 #include <stdint.h>
+#include "rpi.h"
 #include "rpi-gpio.h"
 
 #define RPI_GPIO_BASE       ( PERIPHERAL_BASE + 0x200000UL )
@@ -46,17 +47,17 @@ static rpi_gpio_t* rpiGpio = (rpi_gpio_t*)RPI_GPIO_BASE;
 
 inline void gpio_init(gpio_t pin)
 {
-    rpiGpio->GPFSEL[pin.num/10] |= (pin.func << (pin.num%10*3);
+    rpiGpio->GPFSEL[pin.num/10] |= (pin.func << (pin.num%10*3));
 }
 
 inline void gpio_on(gpio_t pin)
 {
-    rpiGpio->GPSET[pin.num/32] = (pin.func << (pin.num%32);
+    rpiGpio->GPSET[pin.num/32] = (pin.func << (pin.num%32));
 }
 
 inline void gpio_off(gpio_t pin)
 {
-    rpiGpio->GPCLR[pin.num/32] = (pin.func << (pin.num%32);
+    rpiGpio->GPCLR[pin.num/32] = (pin.func << (pin.num%32));
 }
 
 

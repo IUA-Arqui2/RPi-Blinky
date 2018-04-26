@@ -16,7 +16,7 @@ clean :
 	rm -f *.img
 	rm -f *.bc
 
-OBJS=main.o hal/rpi-gpio.o hal/rpi-armtimer.o hal/rpi-interrupts.o
+OBJS=main.o BSP/bsp.o BSP/HAL/rpi-gpio.o BSP/HAL/rpi-interrupts.o
 
 vectors.o : vectors.s
 	$(ARMGNU)-as vectors.s -o vectors.o
