@@ -1,14 +1,18 @@
 ARMGNU ?= arm-none-eabi
 
 AOPS = --warn --fatal-warnings 
-CFLAGS = -Wall -Werror -O2 -nostdlib -nostartfiles -ffreestanding 
+CFLAGS = -Wall -Werror -O2 -nostdlib -nostartfiles -ffreestanding
+
+# Habría que inicializar la FPU en vectors.s
+#CFLAGS += -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 -mfloat-abi=hard
+
+LDFLAGS = -nostdlib -lgcc 
 
 
 all : kernel7.img 
 
 clean :
-	rm -f *.o
-	rm -f hal/*.o
+	find . -iname "*.o" -exec rm -f {} \;
 	rm -f *.bin
 	rm -f *.hex
 	rm -f *.elf
@@ -29,8 +33,8 @@ hal/%.o: hal/%.c
 	$(ARMGNU)-gcc $(CFLAGS) -c $< -o $@
 
 main.elf : memmap vectors.o  $(OBJS)
-	$(ARMGNU)-ld vectors.o $(OBJS) -T memmap -o main.elf
-	$(ARMGNU)-objdump -D main.elf > main.list
+	$(ARMGNU)-gcc vectors.o $(OBJS) -T memmap -o main.elf $(LDFLAGS)
+	$(ARMGNU)-objdump -S -D main.elf > main.list
 
 kernel7.img : main.elf
 	$(ARMGNU)-objcopy main.elf -O binary kernel7.img

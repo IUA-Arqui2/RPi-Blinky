@@ -25,10 +25,10 @@ void led_on( leds_t pin){
 
  void delay_ms(uint32_t ms){
     volatile uint32_t cont = ms;
-    volatile uint32_t mili;
+    volatile float mili;
     
     while(cont){
         cont--;
-        for( mili=0 ; mili < 1000 ; mili++){}
+        for( mili=0 ; mili < 5 ; mili+=0.1){}
     }
 }
