@@ -67,6 +67,14 @@ skip:
     ;@ stmia r1!,{r2,r3,r4,r5,r6,r7,r8,r9}
     ;@ ldmia r0!,{r2,r3,r4,r5,r6,r7,r8,r9}
     ;@ stmia r1!,{r2,r3,r4,r5,r6,r7,r8,r9}
+    
+    ;@ Enable Advanced SIMD & Vector Floating Point Calculations (NEON MPE)
+   ;@ mrc p15,0,r0,c1,c0,2 ;@ R0 = Access Control Register
+   ;@ orr r0,$300000 + $C00000 ;@ Enable Single & Double Precision
+   ;@ mcr p15,0,r0,c1,c0,2 ;@ Access Control Register = R0
+   ;@ mov r0,$40000000 ;@ R0 = Enable VFP
+   ;@ vmsr fpexc,r0 ;@ FPEXC = R0
+    
 
     ;@ (PSR_IRQ_MODE|PSR_FIQ_DIS|PSR_IRQ_DIS)
     mov r0,#0xD2
